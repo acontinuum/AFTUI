@@ -1,0 +1,13 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Main",
+            "request": "launch",
+            "mainClass": "Main",
+            "projectName": "package-delivery_54490481",
+            "vmArgs": "--module-path \"/Users/continuum/javafx-sdk-25.0.2/lib\" --add-modules javafx.controls,javafx.fxml"
+        }
+    ]
+}
