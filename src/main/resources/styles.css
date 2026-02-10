@@ -1,0 +1,18 @@
+.toolbar-button {
+    -fx-background-radius: 4;
+    -fx-text-fill: white;
+    -fx-font-size: 12px;
+    -fx-min-width: 40px;
+    -fx-padding: 12 24 12 24;
+    -fx-cursor: hand;
+}
+
+.flight-option-button {
+    -fx-background-radius: 6;
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-min-width: 160px;
+    -fx-min-height: 80px;
+    -fx-padding: 12 24 12 24;
+    -fx-cursor: hand;
+}

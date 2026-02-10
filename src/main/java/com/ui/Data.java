@@ -1,6 +1,8 @@
+package com.droneviewui;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import java.awt.image.BufferedImage;
 
 // Class for storing telemetry and drone data for other classes to access
 public class Data {
@@ -9,12 +11,27 @@ public class Data {
     // --------------
     private BooleanProperty DRONE_ARMED = new SimpleBooleanProperty();
     private BooleanProperty CONNECTED_TO_DRONE = new SimpleBooleanProperty();
+    private BooleanProperty DRONE_IN_FLIGHT = new SimpleBooleanProperty();
+    private IntegerProperty SELECTED_FLIGHT = new SimpleIntegerProperty(); // Stores the selected flight as it is on the drone. Commands to change flight go through the drone and back into system through a state input.
+    private Flight[] AVAILABLE_FLIGHTS;
+
     // --------------
     // VARIABLES
     // --------------
 
     // General Properties
     private StringProperty DRONE_NAME = new SimpleStringProperty();
+
+    // Health Properies
+    private BooleanProperty HEALTH_GPS = new SimpleBooleanProperty();
+    private BooleanProperty HEALTH_BATTERY = new SimpleBooleanProperty();
+    private BooleanProperty HEALTH_MOTOR = new SimpleBooleanProperty();
+    private BooleanProperty HEALTH_IMU = new SimpleBooleanProperty();
+    private BooleanProperty HEALTH_LOGGING = new SimpleBooleanProperty(); 
+    private BooleanProperty HEALTH_CAMERA = new SimpleBooleanProperty();
+    private BooleanProperty HEALTH_STORAGE = new SimpleBooleanProperty(); 
+    private BooleanProperty HEALTH_RADIO = new SimpleBooleanProperty(); 
+    private BooleanProperty HEALTH_PIXHAWK = new SimpleBooleanProperty(); 
 
     // Drone Kinematics
     private DoubleProperty DRONE_ALTITUDE = new SimpleDoubleProperty();
@@ -39,6 +56,10 @@ public class Data {
     private DoubleProperty FLIGHT_NEXT_TARGET_DIST = new SimpleDoubleProperty();
     private StringProperty FLIGHT_NAME = new SimpleStringProperty();
     private StringProperty FLIGHT_STATUS = new SimpleStringProperty();
+
+    // Camera
+    private BufferedImage BOTTOM_CAMERA_FRAME;
+    private BufferedImage FRONT_CAMERA_FRAME;
     
     // Misc 
     private BooleanProperty PAYLOAD_STATUS = new SimpleBooleanProperty();
@@ -55,6 +76,59 @@ public class Data {
     public boolean isDroneArmed() { return DRONE_ARMED.get(); }
     public void setDroneArmed(boolean value) { DRONE_ARMED.set(value); }
     public BooleanProperty droneArmedProperty() { return DRONE_ARMED; }
+
+    public boolean isDroneInFlight() { return DRONE_IN_FLIGHT.get(); }
+    public void setDroneInFlight(boolean value) { DRONE_IN_FLIGHT.set(value); }
+    public BooleanProperty droneInFlightProperty() { return DRONE_IN_FLIGHT; }
+
+    public int getSelectedFlight() { return SELECTED_FLIGHT.get(); }
+    public void setSelectedFlight(int value) { SELECTED_FLIGHT.set(value); }
+    public IntegerProperty selectedFlightProperty() { return SELECTED_FLIGHT; }
+
+    public Flight[] getAvailableFlights() { return AVAILABLE_FLIGHTS; }
+    public void setAvailableFlights(Flight[] flights) { AVAILABLE_FLIGHTS = flights; }
+
+    // Health Checks
+    public boolean isHealthGps() { return HEALTH_GPS.get(); }
+    public void setHealthGps(boolean value) { HEALTH_GPS.set(value); }
+    public BooleanProperty healthGpsProperty() { return HEALTH_GPS; }
+
+    public boolean isHealthBattery() { return HEALTH_BATTERY.get(); }
+    public void setHealthBattery(boolean value) { HEALTH_BATTERY.set(value); }
+    public BooleanProperty healthBatteryProperty() { return HEALTH_BATTERY; }
+
+    public boolean isHealthMotor() { return HEALTH_MOTOR.get(); }
+    public void setHealthMotor(boolean value) { HEALTH_MOTOR.set(value); }
+    public BooleanProperty healthMotorProperty() { return HEALTH_MOTOR; }
+
+    public boolean isHealthIMU() { return HEALTH_IMU.get(); }
+    public void setHealthIMU(boolean value) { HEALTH_IMU.set(value); }
+    public BooleanProperty healthIMUProperty() { return HEALTH_IMU; }
+
+    // HEALTH_LOGGING
+    public boolean isHealthLogging() { return HEALTH_LOGGING.get(); }
+    public void setHealthLogging(boolean value) { HEALTH_LOGGING.set(value); }
+    public BooleanProperty healthLoggingProperty() { return HEALTH_LOGGING; }
+
+    // HEALTH_CAMERA
+    public boolean isHealthCamera() { return HEALTH_CAMERA.get(); }
+    public void setHealthCamera(boolean value) { HEALTH_CAMERA.set(value); }
+    public BooleanProperty healthCameraProperty() { return HEALTH_CAMERA; }
+
+    // HEALTH_STORAGE
+    public boolean isHealthStorage() { return HEALTH_STORAGE.get(); }
+    public void setHealthStorage(boolean value) { HEALTH_STORAGE.set(value); }
+    public BooleanProperty healthStorageProperty() { return HEALTH_STORAGE; }
+
+    // HEALTH_RADIO
+    public boolean isHealthRadio() { return HEALTH_RADIO.get(); }
+    public void setHealthRadio(boolean value) { HEALTH_RADIO.set(value); }
+    public BooleanProperty healthRadioProperty() { return HEALTH_RADIO; }
+
+    // HEALTH_PIXHAWK
+    public boolean isHealthPixhawk() { return HEALTH_PIXHAWK.get(); }
+    public void setHealthPixhawk(boolean value) { HEALTH_PIXHAWK.set(value); }
+public BooleanProperty healthPixhawkProperty() { return HEALTH_PIXHAWK; }
 
     // General Properties
     public String getDroneName() { return DRONE_NAME.get(); }
@@ -129,6 +203,13 @@ public class Data {
     public void setFlightStatus(String value) { FLIGHT_STATUS.set(value); }
     public StringProperty flightStatusProperty() { return FLIGHT_STATUS; }
 
+    // Camera
+    public BufferedImage getBottomFrame() { return BOTTOM_CAMERA_FRAME; }
+    public void setBottomFrame(BufferedImage frame) { BOTTOM_CAMERA_FRAME = frame; }
+
+    public BufferedImage getFrontFrame() { return FRONT_CAMERA_FRAME; }
+    public void setFrontFrame(BufferedImage frame) { FRONT_CAMERA_FRAME = frame; }
+
     // Misc
     public boolean getPayloadStatus() { return PAYLOAD_STATUS.get(); }
     public void setPayloadStatus(boolean value) { PAYLOAD_STATUS.set(value); }
@@ -157,5 +238,4 @@ public class Data {
     public void hardKill() {}
     public void autoLand() {}
     public void returnToHome() {}
-
 }

@@ -1,3 +1,4 @@
+package com.droneviewui;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
@@ -18,21 +19,33 @@ public class Main extends Application {
     public void start(Stage stage) throws Exception {
         // Load scene and initial pane creation (needed by later setup functions)
         main = new BorderPane();
-        Scene scene = new Scene(main, 1050, 600, Color.BEIGE);
+        Scene scene = new Scene(main, 1050, 570, Color.BEIGE);
         stage.setTitle("Husky DroneView 0.1");
         stage.setScene(scene);
+
 
         // Load systems
         data = new Data();
 
+        // Load services
+        //ControlService controlService = new ControlService();
+        //TelemetryService telemetryService = new TelemetryService(data, controlService);
+
+        // Start services
+        //telemetryService.start();
+
         // Load styling
-        scene.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
+        scene.getStylesheets().add(getClass().getResource("/styles.css").toExternalForm());
 
         // Load pages
+        Page connectionPage = new ConnectionPage(data);
         Page flightPage = new FlightPage(data);
+        Page cameraPage = new CameraPage(data);
 
-        pages = new Page[1]; // Replace magic number (# of pages)
-        pages[0] = flightPage;
+        pages = new Page[3]; // Replace magic number (# of pages)
+        pages[0] = connectionPage;
+        pages[1] = flightPage;
+        pages[2] = cameraPage;
 
         // Main pane setup
         main.setTop(navbar());
@@ -46,6 +59,7 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         launch(args);
+        System.out.println("Test");
     }
 
     private void selectPage(int pageIndex) {
